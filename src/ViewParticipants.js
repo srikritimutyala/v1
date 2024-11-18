@@ -1,7 +1,7 @@
 // src/ViewParticipants.js
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
-import { collection, getDocs, doc, updateDoc, arrayUnion,arrayRemove } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, deleteDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 const ViewParticipants = () => {
   const [participants, setParticipants] = useState([]);
@@ -52,6 +52,17 @@ const ViewParticipants = () => {
     }
   };
 
+  // Function to delete a participant
+  const deleteParticipant = async (participantId) => {
+    try {
+      const participantDoc = doc(db, "participants", participantId); // Get reference to the participant document
+      await deleteDoc(participantDoc); // Delete the participant document
+      fetchParticipants(); // Refresh the list after deletion
+    } catch (error) {
+      console.error("Error deleting participant:", error);
+    }
+  };
+
   // Fetch participants when the component loads
   useEffect(() => {
     fetchParticipants();
@@ -67,12 +78,13 @@ const ViewParticipants = () => {
             <strong onClick={() => setSelectedParticipantId(participant.id)}>
               {participant.name}
             </strong>
+            <button onClick={() => deleteParticipant(participant.id)}>Delete Participant</button>
             <ul>
               {participant.wishlist.map((item, index) => (
                 <li key={index}>
                   {item}{" "}
                   <button onClick={() => deleteWishlistItem(participant.id, item)}>
-                    Delete = delete docs
+                    Delete Wishlist Item
                   </button>
                 </li>
               ))}
@@ -84,7 +96,7 @@ const ViewParticipants = () => {
                   type="text"
                   value={newWishlistItem}
                   onChange={(e) => setNewWishlistItem(e.target.value)}
-                  placeholder="Add a new wishlist item = going into a doc"
+                  placeholder="Add a new wishlist item"
                 />
                 <button onClick={addWishlistItem}>Add Item</button>
               </div>
