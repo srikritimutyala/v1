@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from "react";
+import Login from "./Login";
+import AddParticipant from "./AddParticipant";
+import ViewParticipants from "./ViewParticipants";
+import AssignSanta from "./AssignSanta";
 
-function App() {
+//nothing special, just the files shown on the main screen
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Secret Santa App</h1>
+      <Login />
+      <AddParticipant />
+      <ViewParticipants />
+      <AssignSanta />
     </div>
   );
-}
+};
 
 export default App;
