@@ -67,37 +67,55 @@ const ViewParticipants = () => {
   useEffect(() => {
     fetchParticipants();
   }, []);
-
   return (
     <div>
+      {/* Header for the participants section */}
       <h2>Participants</h2>
+  
+      {/* Button to manually refresh the list of participants */}
       <button onClick={fetchParticipants}>Refresh Participants</button>
+  
+      {/* Unordered list to display all participants */}
       <ul>
+        {/* Iterate through the participants array to render each participant */}
         {participants.map((participant) => (
           <li key={participant.id}>
+            {/* Display the participant's name; clicking on the name selects the participant */}
             <strong onClick={() => setSelectedParticipantId(participant.id)}>
               {participant.name}
             </strong>
-            <button onClick={() => deleteParticipant(participant.id)}>Delete Participant</button>
+  
+            {/* Button to delete the entire participant record from the database */}
+            <button onClick={() => deleteParticipant(participant.id)}>
+              Delete Participant
+            </button>
+  
+            {/* Unordered list to display the wishlist items for the current participant */}
             <ul>
+              {/* Iterate through the wishlist array to render each item */}
               {participant.wishlist.map((item, index) => (
                 <li key={index}>
+                  {/* Display the wishlist item */}
                   {item}{" "}
+                  {/* Button to delete the specific wishlist item */}
                   <button onClick={() => deleteWishlistItem(participant.id, item)}>
                     Delete Wishlist Item
                   </button>
                 </li>
               ))}
             </ul>
-            {/* Show input for adding wishlist item if this participant is selected */}
+  
+            {/* Conditional rendering: Show input to add a wishlist item if this participant is selected */}
             {selectedParticipantId === participant.id && (
               <div>
+                {/* Input field to enter a new wishlist item */}
                 <input
                   type="text"
                   value={newWishlistItem}
                   onChange={(e) => setNewWishlistItem(e.target.value)}
                   placeholder="Add a new wishlist item"
                 />
+                {/* Button to add the entered wishlist item to the selected participant */}
                 <button onClick={addWishlistItem}>Add Item</button>
               </div>
             )}
@@ -106,6 +124,7 @@ const ViewParticipants = () => {
       </ul>
     </div>
   );
+  
 };
 
 export default ViewParticipants;

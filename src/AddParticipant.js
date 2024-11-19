@@ -9,6 +9,7 @@ const AddParticipant = () => {
   const [wishlist, setWishlist] = useState("");
 
   //code that happens when you press add participant
+  //have to use async because docs communicates with server
   const handleAddParticipant = async () => {
     try {
       // Split the wishlist input by commas and create an array 

@@ -56,3 +56,11 @@ const AssignSanta = () => {
 };
 
 export default AssignSanta;
+
+//OVER VIEW: 
+// addDoc=> adds documents
+// getDocs=> fetches documents
+// updateDocs=> changes something in the fields
+// arrayRemove/ arrayunion => adds or removes stuff from fiels array
+// deleteDoc=> removes doc
+// .find() => searchs for specific field
